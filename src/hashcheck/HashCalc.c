@@ -398,13 +398,15 @@ BOOL WINAPI HashCalcWriteResult( PHASHCALCCONTEXT phcctx, PHASHCALCITEM pItem )
 	}
 
 	// Translate the filter index to a hash
-	switch (phcctx->ofn.nFilterIndex)
-	{
-		case 1: pszHash = pItem->results.szHexCRC32; break;
-		case 2: pszHash = pItem->results.szHexMD4;   break;
-		case 3: pszHash = pItem->results.szHexMD5;   break;
-		case 4: pszHash = pItem->results.szHexSHA1;  break;
-	}
+    switch (phcctx->ofn.nFilterIndex)
+    {
+    case 1: pszHash = pItem->results.szHexCRC32; break;
+        //case 2: pszHash = pItem->results.szHexMD4;   break;
+        //case 3: pszHash = pItem->results.szHexMD5;   break;
+        //case 4: pszHash = pItem->results.szHexSHA1;  break;
+    default:
+        pszHash = pItem->results.szHexMD5;
+    }
 
 	// Format the line
 	#define HashCalcFormat(a, b) wnsprintf(phcctx->scratch.sz, MAX_PATH_BUFFER, phcctx->szFormat, a, b)
@@ -416,47 +418,46 @@ BOOL WINAPI HashCalcWriteResult( PHASHCALCCONTEXT phcctx, PHASHCALCITEM pItem )
 	if (cchLine > 0)
 	{
 		// Convert to the correct encoding
-		switch (phcctx->opt.dwSaveEncoding)
-		{
-			case 0:
-			{
-				// UTF-8
-				#ifdef UNICODE
-				cbLine = WStrToUTF8(phcctx->scratch.szW, phcctx->scratch.szA, countof(phcctx->scratch.szA)) - 1;
-				#else
-				         AStrToWStr(phcctx->scratch.szA, phcctx->scratch.szW, countof(phcctx->scratch.szW));
-				cbLine = WStrToUTF8(phcctx->scratch.szW, phcctx->scratch.szA, countof(phcctx->scratch.szA)) - 1;
-				#endif
+        switch (phcctx->opt.dwSaveEncoding)
+        {
+        case 1:
+        {
+                  // UTF-16
+#ifndef UNICODE
+                  cchLine = AStrToWStr(phcctx->scratch.szA, phcctx->scratch.szW, countof(phcctx->scratch.szW)) - 1;
+#endif
 
-				pvLine = phcctx->scratch.szA;
-				break;
-			}
+                  cbLine = cchLine * sizeof(WCHAR);
+                  pvLine = phcctx->scratch.szW;
+                  break;
+        }
 
-			case 1:
-			{
-				// UTF-16
-				#ifndef UNICODE
-				cchLine = AStrToWStr(phcctx->scratch.szA, phcctx->scratch.szW, countof(phcctx->scratch.szW)) - 1;
-				#endif
+        case 2:
+        {
+                  // ANSI
+#ifdef UNICODE
+                  cbLine = WStrToAStr(phcctx->scratch.szW, phcctx->scratch.szA, countof(phcctx->scratch.szA)) - 1;
+#else
+                  cbLine = cchLine;
+#endif
 
-				cbLine = cchLine * sizeof(WCHAR);
-				pvLine = phcctx->scratch.szW;
-				break;
-			}
+                  pvLine = phcctx->scratch.szA;
+                  break;
+        }
+        default: //case 0:
+        {
+                     // UTF-8
+#ifdef UNICODE
+                     cbLine = WStrToUTF8(phcctx->scratch.szW, phcctx->scratch.szA, countof(phcctx->scratch.szA)) - 1;
+#else
+                     AStrToWStr(phcctx->scratch.szA, phcctx->scratch.szW, countof(phcctx->scratch.szW));
+                     cbLine = WStrToUTF8(phcctx->scratch.szW, phcctx->scratch.szA, countof(phcctx->scratch.szA)) - 1;
+#endif
 
-			case 2:
-			{
-				// ANSI
-				#ifdef UNICODE
-				cbLine = WStrToAStr(phcctx->scratch.szW, phcctx->scratch.szA, countof(phcctx->scratch.szA)) - 1;
-				#else
-				cbLine = cchLine;
-				#endif
-
-				pvLine = phcctx->scratch.szA;
-				break;
-			}
-		}
+                     pvLine = phcctx->scratch.szA;
+                     break;
+        }
+        }
 
 		if (cbLine > 0)
 		{

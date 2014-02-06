@@ -110,7 +110,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\hashcheck\HashCheck.def">
+    <None Include="HashCheck.def">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

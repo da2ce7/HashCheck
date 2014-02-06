@@ -313,7 +313,7 @@ VOID WINAPI HashVerifyParseData( PHASHVERIFYCONTEXT phvctx )
 	{
 		PTSTR pszStartOfLine;  // First non-whitespace character of the line
 		PTSTR pszEndOfLine;    // Last non-whitespace character of the line
-		PTSTR pszChecksum, pszFileName = NULL;
+        PTSTR pszChecksum = NULL, pszFileName = NULL;
 		INT16 cchPath;         // This INCLUDES the NULL terminator!
 
 		// Step 1: Isolate the current line as a NULL-terminated string

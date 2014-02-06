@@ -58,12 +58,12 @@
     <ClCompile Include="..\..\src\hashcheck\UnicodeHelpers.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\hashcheck\HashCheck.def" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\winhash\WinHash.vcxproj">
       <Project>{03a5b26e-d88d-426e-a495-a53889f87efd}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HashCheck.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DCAD938F-9032-4AF9-BA67-8C0CF309D986}</ProjectGuid>
@@ -146,6 +146,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>Comctl32.lib;Shlwapi.lib;UxTheme.lib;cryptdll.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>HashCheck.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -158,6 +159,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>Comctl32.lib;Shlwapi.lib;UxTheme.lib;cryptdll.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>HashCheck.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -174,6 +176,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Comctl32.lib;Shlwapi.lib;UxTheme.lib;cryptdll.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>HashCheck.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -190,6 +193,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Comctl32.lib;Shlwapi.lib;UxTheme.lib;cryptdll.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>HashCheck.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
