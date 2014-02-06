@@ -14,7 +14,7 @@ extern "C" {
 #endif
 
 #include <windows.h>
-#include "libs\SimpleString.h"
+#include "winhash\SimpleString.h"
 
 /**
  * Helper Macros

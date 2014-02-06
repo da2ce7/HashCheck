@@ -105,14 +105,14 @@ VOID WHAPI WHInitEx( PWHCTXEX pContext )
 	if (pContext->flags & WHEX_CHECKCRC32)
 		WHInitCRC32(&pContext->ctxCRC32);
 
-	if (pContext->flags & WHEX_CHECKMD4)
-		WHInitMD4(&pContext->ctxMD4);
+	//if (pContext->flags & WHEX_CHECKMD4)
+	//	WHInitMD4(&pContext->ctxMD4);
 
 	if (pContext->flags & WHEX_CHECKMD5)
 		WHInitMD5(&pContext->ctxMD5);
 
-	if (pContext->flags & WHEX_CHECKSHA1)
-		WHInitSHA1(&pContext->ctxSHA1);
+	//if (pContext->flags & WHEX_CHECKSHA1)
+	//	WHInitSHA1(&pContext->ctxSHA1);
 }
 
 VOID WHAPI WHUpdateEx( PWHCTXEX pContext, PCBYTE pbIn, UINT cbIn )
@@ -120,14 +120,14 @@ VOID WHAPI WHUpdateEx( PWHCTXEX pContext, PCBYTE pbIn, UINT cbIn )
 	if (pContext->flags & WHEX_CHECKCRC32)
 		WHUpdateCRC32(&pContext->ctxCRC32, pbIn, cbIn);
 
-	if (pContext->flags & WHEX_CHECKMD4)
-		WHUpdateMD4(&pContext->ctxMD4, pbIn, cbIn);
+	//if (pContext->flags & WHEX_CHECKMD4)
+	//	WHUpdateMD4(&pContext->ctxMD4, pbIn, cbIn);
 
 	if (pContext->flags & WHEX_CHECKMD5)
 		WHUpdateMD5(&pContext->ctxMD5, pbIn, cbIn);
 
-	if (pContext->flags & WHEX_CHECKSHA1)
-		WHUpdateSHA1(&pContext->ctxSHA1, pbIn, cbIn);
+	//if (pContext->flags & WHEX_CHECKSHA1)
+	//	WHUpdateSHA1(&pContext->ctxSHA1, pbIn, cbIn);
 }
 
 VOID WHAPI WHFinishEx( PWHCTXEX pContext, PWHRESULTEX pResults )
@@ -141,11 +141,11 @@ VOID WHAPI WHFinishEx( PWHCTXEX pContext, PWHRESULTEX pResults )
 		WHByteToHex(pContext->ctxCRC32.result, pResults->szHexCRC32, 8, pContext->uCaseMode);
 	}
 
-	if (pContext->flags & WHEX_CHECKMD4)
-	{
-		WHFinishMD4(&pContext->ctxMD4);
-		WHByteToHex(pContext->ctxMD4.result, pResults->szHexMD4, 32, pContext->uCaseMode);
-	}
+	//if (pContext->flags & WHEX_CHECKMD4)
+	//{
+	//	WHFinishMD4(&pContext->ctxMD4);
+	//	WHByteToHex(pContext->ctxMD4.result, pResults->szHexMD4, 32, pContext->uCaseMode);
+	//}
 
 	if (pContext->flags & WHEX_CHECKMD5)
 	{
@@ -153,9 +153,9 @@ VOID WHAPI WHFinishEx( PWHCTXEX pContext, PWHRESULTEX pResults )
 		WHByteToHex(pContext->ctxMD5.result, pResults->szHexMD5, 32, pContext->uCaseMode);
 	}
 
-	if (pContext->flags & WHEX_CHECKSHA1)
-	{
-		WHFinishSHA1(&pContext->ctxSHA1);
-		WHByteToHex(pContext->ctxSHA1.result, pResults->szHexSHA1, 40, pContext->uCaseMode);
-	}
+    //if (pContext->flags & WHEX_CHECKSHA1)
+    //{
+    //    WHFinishSHA1(&pContext->ctxSHA1);
+    //    WHByteToHex(pContext->ctxSHA1.result, pResults->szHexSHA1, 40, pContext->uCaseMode);
+    //}
 }

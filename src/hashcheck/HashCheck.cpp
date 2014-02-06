@@ -10,7 +10,7 @@
 #include "CHashCheck.hpp"
 #include "CHashCheckClassFactory.hpp"
 #include "RegHelpers.h"
-#include "libs\Wow64.h"
+#include "winhash\Wow64.h"
 
 // Bookkeeping globals (declared as extern in globals.h)
 HMODULE g_hModThisDll;

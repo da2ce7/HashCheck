@@ -46,7 +46,7 @@ typedef PVOID HSIMPLELIST, *PHSIMPLELIST;
  **/
 
 #ifndef SL_ENABLE_LGBLK
-HSIMPLELIST SLSAPI SLCreate( );
+HSIMPLELIST SLSAPI SLCreate();
 #else
 #define SLCreate() SLCreateEx(FALSE)
 HSIMPLELIST SLSAPI SLCreateEx( BOOL bLargeBlock );

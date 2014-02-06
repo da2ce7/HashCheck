@@ -49,7 +49,7 @@ STDMETHODIMP CHashCheck::Initialize( LPCITEMIDLIST pidlFolder, LPDATAOBJECT pdto
 
 	// Make sure that we are working with a fresh list
 	SLRelease(m_hList);
-	m_hList = SLCreate();
+    m_hList = SLCreate();
 
 	// This indent exists to facilitate diffing against the CmdOpen source
 	{

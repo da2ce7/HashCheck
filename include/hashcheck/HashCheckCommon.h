@@ -15,7 +15,7 @@ extern "C" {
 
 #include <windows.h>
 #include "HashCheckUI.h"
-#include "libs\WinHash.h"
+#include "winhash\WinHash.h"
 
 // Tuning constants
 #define MAX_PATH_BUFFER       0x800
@@ -90,7 +90,7 @@ typedef struct {
 HANDLE __fastcall OpenFileForReading( PCTSTR pszPath );
 
 // Parsing helpers
-VOID __fastcall NormalizeString( PTSTR psz );
+VOID __fastcall HashNormalizeString( PTSTR psz );
 
 // UI-related functions
 VOID WINAPI SetControlText( HWND hWnd, UINT uCtrlID, UINT uStringID );

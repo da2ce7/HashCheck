@@ -10,7 +10,7 @@
 #include "HashCheckCommon.h"
 #include "HashCheckOptions.h"
 #include "RegHelpers.h"
-#include "libs\IsFontAvailable.h"
+#include "winhash\IsFontAvailable.h"
 
 #define OPTIONS_KEYNAME TEXT("Software\\HashCheck")
 

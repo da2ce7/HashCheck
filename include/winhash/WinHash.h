@@ -49,17 +49,17 @@ typedef struct {
 
 WHDLLIMP UINT32 WINAPI RtlComputeCrc32( UINT32 uInitial, PCBYTE pbIn, UINT cbIn );
 
-WHDLLIMP VOID WINAPI MD4Init( PMD4_CTX pContext );
-WHDLLIMP VOID WINAPI MD4Update( PMD4_CTX pContext, PCBYTE pbIn, UINT cbIn );
-WHDLLIMP VOID WINAPI MD4Final( PMD4_CTX pContext );
+//WHDLLIMP VOID WINAPI MD4Init( PMD4_CTX pContext );
+//WHDLLIMP VOID WINAPI MD4Update( PMD4_CTX pContext, PCBYTE pbIn, UINT cbIn );
+//WHDLLIMP VOID WINAPI MD4Final( PMD4_CTX pContext );
 
 WHDLLIMP VOID WINAPI MD5Init( PMD5_CTX pContext );
 WHDLLIMP VOID WINAPI MD5Update( PMD5_CTX pContext, PCBYTE pbIn, UINT cbIn );
 WHDLLIMP VOID WINAPI MD5Final( PMD5_CTX pContext );
 
-WHDLLIMP VOID WINAPI A_SHAInit( PSHA1_CTX pContext );
-WHDLLIMP VOID WINAPI A_SHAUpdate( PSHA1_CTX pContext, PCBYTE pbIn, UINT cbIn );
-WHDLLIMP VOID WINAPI A_SHAFinal( PSHA1_CTX pContext, PBYTE pbResult );
+//WHDLLIMP VOID WINAPI A_SHAInit( PSHA1_CTX pContext );
+//WHDLLIMP VOID WINAPI A_SHAUpdate( PSHA1_CTX pContext, PCBYTE pbIn, UINT cbIn );
+//WHDLLIMP VOID WINAPI A_SHAFinal( PSHA1_CTX pContext, PBYTE pbResult );
 
 /**
  * Structures used by our consistency wrapper layer
@@ -114,58 +114,58 @@ __forceinline VOID WHFinishCRC32( PWHCTXCRC32 pContext )
 #define WHUpdateMD5 MD5Update
 #define WHFinishMD5 MD5Final
 
-__forceinline VOID WHInitSHA1( PWHCTXSHA1 pContext )
-{
-	A_SHAInit(&pContext->ctx);
-}
+//__forceinline VOID WHInitSHA1( PWHCTXSHA1 pContext )
+//{
+//	A_SHAInit(&pContext->ctx);
+//}
+//
+//__forceinline VOID WHUpdateSHA1( PWHCTXSHA1 pContext, PCBYTE pbIn, UINT cbIn )
+//{
+//	A_SHAUpdate(&pContext->ctx, pbIn, cbIn);
+//}
+//
+//__forceinline VOID WHFinishSHA1( PWHCTXSHA1 pContext )
+//{
+//	A_SHAFinal(&pContext->ctx, pContext->result);
+//}
 
-__forceinline VOID WHUpdateSHA1( PWHCTXSHA1 pContext, PCBYTE pbIn, UINT cbIn )
-{
-	A_SHAUpdate(&pContext->ctx, pbIn, cbIn);
-}
-
-__forceinline VOID WHFinishSHA1( PWHCTXSHA1 pContext )
-{
-	A_SHAFinal(&pContext->ctx, pContext->result);
-}
-
-__forceinline VOID WHInitED2K( PWHCTXED2K pContext )
-{
-	MD4Init(&pContext->ctxList);
-	MD4Init(&pContext->ctxChunk);
-	pContext->cbChunkRemaining = 9500 << 10;
-	pContext->result = pContext->ctxChunk.result;
-}
-
-__forceinline VOID WHUpdateED2K( PWHCTXED2K pContext, PCBYTE pbIn, UINT cbIn )
-{
-	if (cbIn >= pContext->cbChunkRemaining)
-	{
-		// Finish off the current chunk and add it to the list hash
-		MD4Update(&pContext->ctxChunk, pbIn, pContext->cbChunkRemaining);
-		MD4Final(&pContext->ctxChunk);
-		MD4Update(&pContext->ctxList, pContext->ctxChunk.result, sizeof(pContext->ctxChunk.result));
-		pbIn += pContext->cbChunkRemaining;
-		cbIn -= pContext->cbChunkRemaining;
-
-		// Reset the chunk context
-		MD4Init(&pContext->ctxChunk);
-		pContext->cbChunkRemaining = 9500 << 10;
-
-		// The final result will now be the list hash, not the chunk hash
-		pContext->result = pContext->ctxList.result;
-	}
-
-	MD4Update(&pContext->ctxChunk, pbIn, cbIn);
-	pContext->cbChunkRemaining -= cbIn;
-}
-
-__forceinline VOID WHFinishED2K( PWHCTXED2K pContext )
-{
-	MD4Final(&pContext->ctxChunk);
-	MD4Update(&pContext->ctxList, pContext->ctxChunk.result, sizeof(pContext->ctxChunk.result));
-	MD4Final(&pContext->ctxList);
-}
+//__forceinline VOID WHInitED2K( PWHCTXED2K pContext )
+//{
+//	MD4Init(&pContext->ctxList);
+//	MD4Init(&pContext->ctxChunk);
+//	pContext->cbChunkRemaining = 9500 << 10;
+//	pContext->result = pContext->ctxChunk.result;
+//}
+//
+//__forceinline VOID WHUpdateED2K( PWHCTXED2K pContext, PCBYTE pbIn, UINT cbIn )
+//{
+//	if (cbIn >= pContext->cbChunkRemaining)
+//	{
+//		// Finish off the current chunk and add it to the list hash
+//		MD4Update(&pContext->ctxChunk, pbIn, pContext->cbChunkRemaining);
+//		MD4Final(&pContext->ctxChunk);
+//		MD4Update(&pContext->ctxList, pContext->ctxChunk.result, sizeof(pContext->ctxChunk.result));
+//		pbIn += pContext->cbChunkRemaining;
+//		cbIn -= pContext->cbChunkRemaining;
+//
+//		// Reset the chunk context
+//		MD4Init(&pContext->ctxChunk);
+//		pContext->cbChunkRemaining = 9500 << 10;
+//
+//		// The final result will now be the list hash, not the chunk hash
+//		pContext->result = pContext->ctxList.result;
+//	}
+//
+//	MD4Update(&pContext->ctxChunk, pbIn, cbIn);
+//	pContext->cbChunkRemaining -= cbIn;
+//}
+//
+//__forceinline VOID WHFinishED2K( PWHCTXED2K pContext )
+//{
+//	MD4Final(&pContext->ctxChunk);
+//	MD4Update(&pContext->ctxList, pContext->ctxChunk.result, sizeof(pContext->ctxChunk.result));
+//	MD4Final(&pContext->ctxList);
+//}
 
 /**
  * WH*To* hex string conversion functions: These require WinHash.c

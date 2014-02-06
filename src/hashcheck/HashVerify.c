@@ -191,7 +191,7 @@ DWORD WINAPI HashVerifyThread( PTSTR pszPath )
 	ZeroMemory(&hvctx, sizeof(hvctx));
 
 	// Prep the path
-	NormalizeString(pszPath);
+    HashNormalizeString(pszPath);
 	StrTrim(pszPath, TEXT(" "));
 	hvctx.pszPath = pszPath;
 
@@ -262,7 +262,7 @@ PBYTE WINAPI HashVerifyLoadData( PHASHVERIFYCONTEXT phvctx )
 
 			// Prepare the data for the parser...
 			phvctx->pszFileData = BufferToWStr(&pbRawData, cbRawData.LowPart);
-			NormalizeString(phvctx->pszFileData);
+            HashNormalizeString(phvctx->pszFileData);
 		}
 
 		CloseHandle(hFile);

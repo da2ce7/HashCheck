@@ -7,7 +7,7 @@
  **/
 
 #include "UnicodeHelpers.h"
-#include "libs\SwapIntrinsics.h"
+#include "winhash\SwapIntrinsics.h"
 
 #define GETWORD(p)  (*((UPWORD) (p)))
 #define GETDWORD(p) (*((UPDWORD)(p)))
